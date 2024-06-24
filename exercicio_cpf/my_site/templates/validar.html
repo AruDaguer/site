@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Validar{{ tipo }}
+{% endblock %}
+
+{% block title_content %}
+    Validar {{ tipo }}
+{% endblock %}
+
+{% block content %}
+<h1>Cadastro de produto</h1>
+
+<form action="/resultado/{{ tipo }}" method="POST">
+    <input type="text" name="{{ tipo }}" id="{{ tipo }}">
+    <button type="submit">Validar</button>
+</form>
+{% endblock %}
+
