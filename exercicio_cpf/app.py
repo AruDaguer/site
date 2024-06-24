@@ -9,30 +9,30 @@ cnpj = CNPJ()
 def gerar(tipo):
     cod = ''
     if tipo == "cpf":
-        cod = cpf.generate()
+        cod = cpf.generate(True)
     if tipo == "cnpj":
-        cod = cnpj.generate()
+        cod = cnpj.generate(True)
 
-    return render_template("gerar.html", tipo = tipo, cod = cod)
+    return render_template("gerar.html", tipo = tipo.upper(), cod = cod)
 
 @app.route("/validar/<tipo>")
 def validar(tipo):
-    return render_template("gerar.html", tipo = tipo)
+    return render_template("validar.html", tipo = tipo.upper())
 
-@app.route("/resultado/<tipo>", method="POST")
+@app.route("/resultado/<tipo>", methods=['POST'])
 def resultado(tipo):
     cod = ''
     validador = "Invalido"
-    if tipo == cpf:
-        cod = request.form["cpf"]
+    if tipo == "CPF":
+        cod = request.form["CPF"]
         if cpf.validate(cod):
             validador = "Válido"
-    if tipo == cnpj:
-        cod = request.form["cnpj"]
+    if tipo == "CNPJ":
+        cod = request.form["CNPJ"]
         if cnpj.validate(cod):
             validador = "Válido"
     
-    return render_template("resultado.html", tipo = tipo, cod = cod, validador = validador )
+    return render_template("resultado.html", tipo = tipo.upper(), cod = cod, validador = validador )
 
 
 
